@@ -2,15 +2,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
-
-
 .navbar{
 	font-size: larger;
 }
 
 .jumbotron {
 	background-color: rgb(124, 243, 183);
+}
+
+form {
 }
