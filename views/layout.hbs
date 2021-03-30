@@ -42,12 +42,21 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					{{#if user}}
-						<li><a href="#">{{user.name}}</a></li>
+						<div class="btn-group adminuser">
+							<button type="button" class="btn btn-secondary">Action</button>
+							<button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">
+								<span class="sr-only">{{user.name}}</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="/logout">Logout</a>
+							</div>
+						</div>
 					{{else}}
-						<li class="nav-item py-2">
+						<li class="nav-item py-2 login">
 							<a class="nav-link" href="/login">Login</a>
 						</li>
-						<li class="nav-item py-2">
+						<li class="nav-item py-2 register">
 							<a class="nav-link" href="/register">Register</a>
 						</li>
 					{{/if}}

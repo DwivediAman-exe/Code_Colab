@@ -1,5 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	overflow-x: hidden;
 }
 
 .navbar{
@@ -20,6 +21,26 @@ body {
 
 .alertregister {
 	width: 100%;
+}
+
+.adminuser {
+	margin: 0 5rem 0 0;
+}
+
+.login,
+.register {
+	margin: 0 1rem;
+	font-size: 1.2rem;
+	font-weight: 500;
+}
+
+.adminuser a{
+color: rgb(24, 24, 22);
+}
+
+dropdown-menu li a{
+	text-align: center;
+	align-items: center;
 }
 
 .form-signin {
