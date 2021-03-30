@@ -15,7 +15,29 @@ router.route('/contact')
   res.render('contact', { title: 'Codecolab - platform for sharing code' });
 })
 .post( function(req, res, next) {
-	res.render('thank', { title: 'Codecolab - platform for sharing code' });
+	
+	var Name = req.body.name.trim();
+	var Email = req.body.email.trim();
+	var Message = req.body.message.trim();
+	var errors = 0;
+
+	if(Name.length<=0 || Email.length<=0 || Message.length<=0) {
+		errors++;
+	}
+	
+	if(errors) {
+		res.render('contact', 
+			{ title: 'Codecolab - platform for sharing code' ,
+			name: req.body.name,
+			email: req.body.email,
+			message: req.body.message,
+			errorMessages:errors 
+		});
+	}
+	else {
+		res.render('thank', { title: 'Codecolab - platform for sharing code' });
+	}
+
 });
 
 module.exports = router;
