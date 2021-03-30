@@ -39,7 +39,7 @@ router.route('/contact')
 	}
 	else {
 		var mailOptioins = {
-			form: 'lapi.work.2019@gmail.com',
+			form: req.body.email,
 			to: 'lapi.work.2019@gmail.com',
 			subject: 'You got a new Visitor',
 			text: req.body.message
@@ -53,6 +53,14 @@ router.route('/contact')
 		});
 	}
 
+});
+
+router.get('/login', function(req,res, next) {
+	res.render('login', {title: 'Login your account'});
+});
+
+router.get('/register', function(req,res, next) {
+	res.render('register', {title: 'Register a new account'});
 });
 
 module.exports = router;

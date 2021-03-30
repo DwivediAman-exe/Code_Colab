@@ -18,3 +18,8 @@ body {
 	align-self: center;
 }
 
+.form-signin {
+	max-width: 25rem;
+	padding: 15px;
+	margin: 0 auto;
+}
