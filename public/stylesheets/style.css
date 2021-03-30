@@ -8,6 +8,9 @@ a {
 
 
 .navbar{
-	margin-bottom: 2rem;
 	font-size: larger;
+}
+
+.jumbotron {
+	background-color: rgb(124, 243, 183);
 }
