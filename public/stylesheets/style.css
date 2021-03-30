@@ -18,6 +18,10 @@ body {
 	align-self: center;
 }
 
+.alertregister {
+	width: 100%;
+}
+
 .form-signin {
 	max-width: 25rem;
 	padding: 15px;
