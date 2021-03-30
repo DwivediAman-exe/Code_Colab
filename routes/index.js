@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
+var config = require('../config');
+var transporter = nodemailer.createTransport(config.mailer);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -35,7 +38,19 @@ router.route('/contact')
 		});
 	}
 	else {
-		res.render('thank', { title: 'Codecolab - platform for sharing code' });
+		var mailOptioins = {
+			form: 'lapi.work.2019@gmail.com',
+			to: 'lapi.work.2019@gmail.com',
+			subject: 'You got a new Visitor',
+			text: req.body.message
+		};
+
+		transporter.sendMail(mailOptioins, function(error, info) {
+			if(error) {
+				return console.log(error);
+			}
+			res.render('thank', { title: 'Codecolab - platform for sharing code' });
+		});
 	}
 
 });
