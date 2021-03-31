@@ -32,6 +32,8 @@
 	</div>
 </div>
 
+<input type="hidden" value="{{roomId}}" id="roomId">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.js"
 integrity="sha512-hc0zo04EIwTzKLvp2eycDTeIUuvoGYYmFIjYx7DmfgQeZPC5N27sPG2wEQPq8d8fCTwuguLrI1ffatqxyTbHJw=="
 crossorigin="anonymous"></script>
@@ -56,6 +58,9 @@ crossorigin="anonymous"></script>
 		username = "User" + userId;
 		$("#chatbox-username").text(username);
 	};
+
+	var roomId = $("#roomId").val();
+	socket.emit('joinRoom', {room: roomId});
 
 	var userMessage = function (name, text) {
 		return ('<li class="media"> <div class="media-body"> <div class="media">' +
