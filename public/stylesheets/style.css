@@ -48,3 +48,15 @@ dropdown-menu li a{
 	padding: 15px;
 	margin: 0 auto;
 }
+
+.editor {
+	padding:2rem 0;
+}
+
+#chatbox {
+	padding:2rem 2rem 2rem 1rem;
+}
+
+.media-list {
+	height: 250px;
+}

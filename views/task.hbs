@@ -1,12 +1,33 @@
 <div>
 	<div class="row">
-		<div class="col-md-8">
-			<textarea id="code-screen">
-
-			</textarea>
+		<div class="col-md-8 editor">
+			<textarea id="code-screen"></textarea>
 		</div>
-		<div class="col-md-4" id="chatbox">
-
+		<div class="col-md-4" id="chatbox" >
+			<div class="card bg-light">
+				<div class="card-header bg-info font-weight-bold">
+					CHAT ROOM
+					<span class="float-right" id="chatbox-username">
+						{{#if user}}
+							{{user.name}}
+						{{/if}}
+					</span>
+				</div>
+				<div class="card-body">
+					<ul class="media-list overflow-auto" id="chatbox-listMessages" id='scrollable'>
+						
+					</ul>
+				</div>
+				<div class="card-footer">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Enter message" id="userMessage" />
+						
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-success" onclick="sendMessage()">SEND</button>
+						</span>
+					</div>
+				</div>
+			</div>	
 		</div>
 	</div>
 </div>
@@ -18,9 +39,40 @@ crossorigin="anonymous"></script>
 integrity="sha512-isTDQTpVc8nKKMQmhm0b6fccRPjzo2g0q6l2VLy9/jDn5s8bEUu9WuSGkkAfN/NCwI3+Qi5wEVCaPRoWvT6YPw=="
 crossorigin="anonymous"></script>
 
+<script src="/socket.io/socket.io.js"></script>
+
 <script>
+
+  var socket = io.connect('http://localhost:3000');
+
 	var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
 		lineNumbers: true,
-		theme: "monokai"
+		theme: "material-ocean"
 	});
+
+	var username = $("#chatbox-username").val();
+	if (username === "") {
+		var userId = Math.floor(Math.random() * 9999).toString();
+		username = "User" + userId;
+		$("#chatbox-username").text(username);
+	};
+
+	var userMessage = function (name, text) {
+		return ('<li class="media"> <div class="media-body"> <div class="media">' +
+			'<div class="media-body"' +
+			'<b>' + name + '</b> : ' + text +
+			'<hr/> </div></div></div></li>'
+		);
+	};
+
+	var sendMessage = function () {
+		var userMessage = $('#userMessage').val();
+		socket.emit('chatMessage', { message: userMessage, username: username });
+		$('#userMessage').val("");
+	};
+
+	socket.on('chatMessage', function (data) {
+		$('#chatbox-listMessages').append(userMessage(data.username, data.message));
+	});
+
 </script>
