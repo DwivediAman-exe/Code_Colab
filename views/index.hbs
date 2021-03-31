@@ -1,2 +1,10 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<br>
+
+{{#if user}}
+	<a href="/createTask" class="btn btn-info">
+	Create new Task
+	</a>
+{{/if}}

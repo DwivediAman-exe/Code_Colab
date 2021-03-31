@@ -1,3 +1,4 @@
+require("dotenv").config();
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
@@ -13,10 +14,13 @@ var config = require('./config');
 
 var indexRoute = require('./routes/index');
 var authRoute = require('./routes/auth');
+var taskRoute = require('./routes/task');
+
 const Mail = require('nodemailer/lib/mailer');
 
 mongoose.connect(config.dbConnstring, { useUnifiedTopology: true } );
-global.User = require('./models/user')
+global.User = require('./models/user');
+global.Task = require('./models/task');
 
 var app = express();
 
@@ -50,6 +54,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRoute);
 app.use('/', authRoute);
+app.use('/', taskRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
