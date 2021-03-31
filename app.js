@@ -13,6 +13,7 @@ var config = require('./config');
 
 var indexRoute = require('./routes/index');
 var authRoute = require('./routes/auth');
+const Mail = require('nodemailer/lib/mailer');
 
 mongoose.connect(config.dbConnstring, { useUnifiedTopology: true } );
 global.User = require('./models/user')

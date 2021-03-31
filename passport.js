@@ -3,6 +3,8 @@ const user = require('./models/user');
 
 var LocalStrategy = require('passport-local').Strategy;
 
+var FacebookStrategy = require('passport-facebook').Strategy;
+
 passport.serializeUser(function (user,done) {
 	done(null, user._id);
 });
@@ -32,4 +34,40 @@ passport.use(new LocalStrategy ({
 			return done(null, user);
 		})
 	}
+));
+
+passport.use(new FacebookStrategy({
+		clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    profileFields: ['id', 'displayName', 'email']
+  },
+  function(token, refreshToken, profile, done) {
+    User.findOne({'facebookId': profile.id}, function(err, user) {
+      if (err) return done(err);
+
+      if (user) {
+        return done(null, user);
+      } else {
+        User.findOne({email: profile.emails[0].value}, function (err, user) {
+          if (user) {
+            user.facebookId = profile.id
+            return user.save(function (err) {
+              if (err) return done(null, false, { message: "Can't save user info"});
+              return done(null, user);
+            })
+          }
+
+          var user = new User();
+          user.name = profile.displayName;
+          user.email = profile.emails[0].value;
+          user.facebookId = profile.idea
+          user.save(function (err) {
+            if (err) return done(null, false, { message: "Can't save user info"});
+            return done(null, user);
+          });
+        })
+      }
+    });
+  }
 ));
