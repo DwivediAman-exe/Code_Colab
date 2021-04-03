@@ -41,15 +41,31 @@ crossorigin="anonymous"></script>
 integrity="sha512-isTDQTpVc8nKKMQmhm0b6fccRPjzo2g0q6l2VLy9/jDn5s8bEUu9WuSGkkAfN/NCwI3+Qi5wEVCaPRoWvT6YPw=="
 crossorigin="anonymous"></script>
 
+<script src="/plugins/ot/ot.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
+	var EditorClient = ot.EditorClient;
+		var SocketIOAdapter = ot.SocketIOAdapter;
+		var CodeMirrorAdapter = ot.CodeMirrorAdapter;
 
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect();
 
 	var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
 		lineNumbers: true,
 		theme: "material-ocean"
+	});
+
+	var cmClient;
+	function init(str, revision, clients, serverAdapter) {
+		editor.setValue(str);
+		cmClient = window.cmClient = new EditorClient(
+			revision, clients, serverAdapter, new CodeMirrorAdapter(editor)
+		);
+	};
+
+		socket.on('doc', function (obj) {
+			init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket));
 	});
 
 	var username = $("#chatbox-username").val();
@@ -59,8 +75,8 @@ crossorigin="anonymous"></script>
 		$("#chatbox-username").text(username);
 	};
 
-	var roomId = $("#roomId").val();
-	socket.emit('joinRoom', {room: roomId});
+	var roomId = $('#roomId').val();
+	socket.emit('joinRoom', { room: roomId, username: username });
 
 	var userMessage = function (name, text) {
 		return ('<li class="media"> <div class="media-body"> <div class="media">' +
