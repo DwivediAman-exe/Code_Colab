@@ -1,10 +1,15 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
-<br>
+<h1 class="main-heading">{{title}} ✔️</h1>
+<p class="main-subheading"> Welcome, Login to enjoy unlimited sharing and coding ! ☝️
+</p>
 
 {{#if user}}
-	<a href="/createTask" class="btn btn-info">
-	Create new Task
-	</a>
+<p class="main-subheading">
+	Create new task and share page link with Your colleague ! 💻
+</p>
+	<div class="row justify-content-center">
+		<a href="/createTask" class="btn btn-info btn-lg">
+			New Task
+		</a>
+	</div>
+	
 {{/if}}

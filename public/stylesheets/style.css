@@ -33,6 +33,19 @@ body {
 	background-color: rgb(124, 243, 183);
 }
 
+.main-heading {
+	text-align: center;
+	word-spacing: .2rem;
+	font-size: 3rem;
+	margin: 3rem;
+}
+
+.main-subheading {
+	text-align: center;
+	margin: 3rem ;
+	font-size: 1.5rem;
+}
+
 .alert{
 	width: 70%;
 	text-align: center;
@@ -71,6 +84,10 @@ dropdown-menu li a{
 	margin: 0 auto;
 }
 
+#codemirror {
+	
+}
+
 .editor {
 	padding:2rem 0;
 }
@@ -94,7 +111,7 @@ footer {
 }
 
 .foot {
-	color: rgb(100, 91, 91);
+	color: rgba(64, 134, 125, 0.6);
 	width: 65%;
 	font-weight: 600;
 	font-size: 1rem;
