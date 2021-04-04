@@ -47,11 +47,12 @@ body {
 }
 
 .alert{
-	width: 70%;
+	width: 100%;
 	text-align: center;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 	align-self: center;
+	align-content: center;
 }
 
 .alertregister {
@@ -76,6 +77,25 @@ color: rgb(24, 24, 22);
 dropdown-menu li a{
 	text-align: center;
 	align-items: center;
+}
+
+.CodeMirror {
+	line-height: 1.3rem;
+  font-family: monospace;
+  font-size: 1.2rem;
+	height: 300px !important;
+}
+
+.editor {
+	padding:2rem 0;
+}
+
+#chatbox {
+	padding:2rem 2rem 2rem 1rem;
+}
+
+.media-list {
+	height: 300px;
 }
 
 .contact {
@@ -104,18 +124,6 @@ dropdown-menu li a{
 	bottom: 6%;
 	left: 50%;
 	transform: translateX(-50%);
-}
-
-.editor {
-	padding:2rem 0;
-}
-
-#chatbox {
-	padding:2rem 2rem 2rem 1rem;
-}
-
-.media-list {
-	height: 320px;
 }
 
 footer {

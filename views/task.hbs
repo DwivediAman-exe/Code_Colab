@@ -44,6 +44,8 @@ crossorigin="anonymous"></script>
 <script src="/plugins/ot/ot.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
+
+
 <script>
 	var EditorClient = ot.EditorClient;
 		var SocketIOAdapter = ot.SocketIOAdapter;
@@ -53,7 +55,7 @@ crossorigin="anonymous"></script>
 
 	var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
 		lineNumbers: true,
-		theme: "material-ocean"
+		theme: "material-ocean",
 	});
 
 	var code = $('#code-screen').val();

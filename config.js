@@ -8,6 +8,6 @@ module.exports = {
 			pass: 'bla'
 		}
 	},
-		dbConnstring: 'mongodb://localhost:27017/codeshare',
+		dbConnstring: 'mongodb+srv://admin:dbPassword@cluster0.pkghb.mongodb.net/CodeColabDB?retryWrites=true&w=majority',
 		sessionKey: 'HaloCodeShare'
 }
