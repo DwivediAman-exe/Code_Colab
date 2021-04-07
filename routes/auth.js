@@ -1,74 +1,65 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-const user = require('../models/user');
 
 router.route('/login')
-.get( function(req, res, next) {
-	res.render('login', {title: 'Login your account'});
-})
-.post( passport.authenticate('local', {
-	failureRedirect: '/login'
-	}), function (req, res) {
-		res.redirect('/');
-});
-
-
+  .get(function(req, res, next) {
+    res.render('login', { title: 'Login your account'});
+  })
+  .post(passport.authenticate('local', {
+    failureRedirect: '/login'
+  }), function (req, res) {
+    res.redirect('/');
+  });
 
 router.route('/register')
-.get( function(req,res, next) {
-	res.render('register', {title: 'Register a new account'});
-})
-.post( function(req, res, next){
+  .get(function(req, res, next) {
+    res.render('register', { title: 'Register a new account'});
+  })
+  .post(function(req, res, next) {
+    req.checkBody('name', 'Empty Name').trim().notEmpty();
+    req.checkBody('email', 'Invalid Email').isEmail();
+    req.checkBody('password', 'Empty Password').notEmpty();
+    req.checkBody('password', 'Password do not match').equals(req.body.confirmPassword).notEmpty();
 
-	var Name = req.body.name.trim();
-	var Email = req.body.email.trim();
-	var Password = req.body.password;
-	var ConfPassword = req.body.confirmPassword;
-	var errors = 0;
-
-	if(Name.length<=0 || Email.length<=0 || Password.length<=0 || ConfPassword<=0 || Password!==ConfPassword) {
-		errors++;
-	}
-
-	if(errors) {
-		res.render('register', {
-			name: req.body.name,
-			email: req.body.email,
-			errorMessages: errors 
-		});
-	}
-	else {
-		var user = new User();
-		user.name = req.body.name;
-		user.email = req.body.email;
-		user.setPassword(req.body.password);
-		user.save(function (err) {
-			if(err) {
-				res.render('register', { errorMessages: err});
-			}
-			else {
-				res.redirect('/login');
-			}
-		})
-	}
-
+    var errors = req.validationErrors();
+    if (errors) {
+      res.render('register', {
+        name: req.body.name,
+        email: req.body.email,
+        errorMessages: errors
+      });
+    } else {
+      var user = new User();
+      user.name = req.body.name;
+      user.email = req.body.email;
+      user.setPassword(req.body.password);
+      user.save(function (err) {
+        if (err) {
+          res.render('register', {errorMessages: err});
+        } else {
+          res.redirect('/login');
+        }
+      })
+    }
 });
 
+// for logout
+router.get('/logout', function(req, res) {
+	req.logOut();
+	res.redirect('/');
+});
 
+// facebook auth
 router.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
 
 router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+  passport.authenticate('facebook', { 
+		failureRedirect: '/', 
+		successRedirect: '/'
+	})
+);
 
-
-router.get('/logout', function(req, res, next){
-req.logOut();
-res.redirect('/');
-});
 
 module.exports = router;

@@ -1,36 +1,24 @@
 body {
-  font: 14px;
+  font: 14px sans-serif;
+	background-color: rgb(245, 237, 237);
 	overflow-x: hidden;
 }
 
-.navbar{
-	font-size: larger;
-	background-color: rgb(39, 143, 108) !important;
+.navbar {
+	background-color: rgb(39, 168, 114) !important;
+	font-size: 1.2rem;
+}
+
+.navitems {
+	margin-left: 1rem;
+	line-height: 2.1rem;
+	font-size: 1.3rem;
 }
 
 .navbar-brand {
-	margin: .3rem;
-	font-size: 1.7rem;
-	font-family: sans-serif;
-	margin-left: 1rem;
-	margin-right: 2rem;
-}
-
-.nav.navbar-nav.navbar-right li a {
-		font-weight: 600;
-}
-
-.navlinks {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
+	margin-left: .8rem;
 	margin-right: 1rem;
-}
-
-.navlinks:hover {
-	font-size: 1.22rem;
-}
-
-.jumbotron {
-	background-color: rgb(124, 243, 183);
 }
 
 .main-heading {
@@ -46,56 +34,16 @@ body {
 	font-size: 1.5rem;
 }
 
-.alert{
-	width: 100%;
+.about {
+	margin: 2rem;
 	text-align: center;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-	align-self: center;
-	align-content: center;
 }
 
-.alertregister {
-	width: 100%;
-}
-
-.adminuser {
-	margin: 0 5rem 0 0;
-}
-
-.login,
-.register {
-	margin: 0 1rem;
-	font-size: 1.2rem;
-	font-weight: 500;
-}
-
-.adminuser a{
-color: rgb(24, 24, 22);
-}
-
-dropdown-menu li a{
-	text-align: center;
-	align-items: center;
-}
-
-.CodeMirror {
-	line-height: 1.3rem;
-  font-family: monospace;
-  font-size: 1.2rem;
-	height: 300px !important;
-}
-
-.editor {
-	padding:2rem 0;
-}
-
-#chatbox {
-	padding:2rem 2rem 2rem 1rem;
-}
-
-.media-list {
-	height: 300px;
+.about h6 {
+	position: absolute;
+	bottom: 6%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .contact {
@@ -108,22 +56,47 @@ dropdown-menu li a{
 	margin: 0 auto;
 }
 
+.jumbotron {
+	background-color: rgba(141, 185, 243, 0.808);
+}
+
 .form-signin {
 	max-width: 25rem;
 	padding: 15px;
 	margin: 0 auto;
 }
 
-.about {
-	margin: 2rem;
-	text-align: center;
+.adminuser {
+	margin: 0 5rem 0 0;
+	font-size: 1.3rem;
 }
 
-.about h6 {
-	position: absolute;
-	bottom: 6%;
-	left: 50%;
-	transform: translateX(-50%);
+.login,
+.register {
+	margin: 0 1rem;
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+
+.editor {
+	margin-top: 1rem;
+	margin-left: 1rem;
+	box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.6);
+}
+
+.CodeMirror {
+  height: 460px;
+  line-height: 1.2rem;
+  font-family: monospace;
+	font-size: 1rem;
+}
+
+#chatbox {
+	margin: 1rem 1rem;
+}
+
+.media-list {
+	height: 280px;
 }
 
 footer {
@@ -139,7 +112,7 @@ footer {
 .foot {
 	color: rgba(64, 134, 125, 0.6);
 	width: 65%;
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 1rem;
 	display: flex;
 	justify-content: center;

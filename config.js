@@ -1,13 +1,13 @@
 'use strict'
 
 module.exports = {
-	mailer : {
+	mailer: {
 		service: 'Gmail',
 		auth: {
-			user: 'lapi.work.2019@gmail.com',
-			pass: 'bla'
+			user: process.env.MAIL,
+			pass: process.env.PASSWORD
 		}
 	},
-		dbConnstring: 'mongodb+srv://admin:dbPassword@cluster0.pkghb.mongodb.net/CodeColabDB?retryWrites=true&w=majority',
-		sessionKey: 'HaloCodeShare'
+	dbConnstring: 'mongodb+srv://admin:dbPassword@cluster0.pkghb.mongodb.net/CodeColabDB?retryWrites=true&w=majority',
+	sessionKey: 'thisisoursecret'
 }

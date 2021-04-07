@@ -1,66 +1,69 @@
-require("dotenv").config();
-var favicon = require('serve-favicon')
+require('dotenv').config()
+var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var logger = require('morgan');
+var bodyparser = require('body-parser');
+var expressValidator = require('express-validator');
+
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 
 require('./passport');
-
 var config = require('./config');
 
-var indexRoute = require('./routes/index');
-var authRoute = require('./routes/auth');
-var taskRoute = require('./routes/task');
+var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+var taskRouter = require('./routes/task');
 
-const Mail = require('nodemailer/lib/mailer');
+// connecting with database 
+mongoose.connect(config.dbConnstring);
+// creating new user model
+global.User  = require('./models/user')
+global.Task  = require('./models/task')
 
-mongoose.connect(config.dbConnstring, { useUnifiedTopology: true } );
-global.User = require('./models/user');
-global.Task = require('./models/task');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(expressValidator());
+
 app.use(cookieParser());
 app.use(session({
 	secret: config.sessionKey,
 	resave: false,
 	saveUninitialized: true,
-}))
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
+// if autheticated then creating session variable
+app.use( function(req, res, next){
 	if(req.isAuthenticated()) {
 		res.locals.user = req.user;
 	}
 	next();
-})
+});
 
-app.use('/', indexRoute);
-app.use('/', authRoute);
-app.use('/', taskRoute);
+app.use('/', indexRouter);
+app.use('/', authRouter);
+app.use('/', taskRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  next(createError(404));
 });
 
 // error handler
