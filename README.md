@@ -5,8 +5,11 @@
 # Features 
 
 > Login and register with email and facebook. 
+ 
 > You can share your code in realtime so that the users can edit the code together.
+ 
 > Also has a chat feature with private rooms.
+
 > Dark theme with color change supports all popular Language.
 
 # Frontend 
