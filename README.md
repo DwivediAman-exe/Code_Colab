@@ -20,6 +20,10 @@
 
 > Nodejs, Mongodb, express with other dependencies 
 
+# Deployment
+
+> Heroku
+
 # To do
 
 > Update packages and implement realtime calling feature
