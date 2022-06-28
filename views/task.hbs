@@ -1,8 +1,10 @@
 <div>
 	<div class="row">
+		{{!-- code editor area --}}
 		<div class="col-md-8 editor">
 			<textarea id="code-screen">{{content}}</textarea>
 		</div>
+		{{!-- chatbox area --}}
 		<div class="col-md-3" id="chatbox">
 			<div class="card bg-light">
 				<div class="card-header bg-info font-weight-bold">
@@ -28,19 +30,31 @@
 					</div>
 				</div>
 			</div>
+
+			{{!-- sharing the common link area --}}
+			<div class="alert alert-info" role="alert">
+				<h6 class="alert-heading">Share URL <i class="fas fa-link"></i></h6>
+				<p>http://localhost:3000/task/
+					{{roomId}}</p>
+			</div>
 		</div>
 	</div>
 </div>
 
+{{!-- getting room ID from the backend which is Task id --}}
 <input type="hidden" value="{{roomId}}" id="roomId">
 
+{{!-- codemirror script --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.js"
 	integrity="sha512-hc0zo04EIwTzKLvp2eycDTeIUuvoGYYmFIjYx7DmfgQeZPC5N27sPG2wEQPq8d8fCTwuguLrI1ffatqxyTbHJw=="
 	crossorigin="anonymous"></script>
+
+{{!-- codemirror javascript  --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/mode/javascript/javascript.min.js"
 	integrity="sha512-isTDQTpVc8nKKMQmhm0b6fccRPjzo2g0q6l2VLy9/jDn5s8bEUu9WuSGkkAfN/NCwI3+Qi5wEVCaPRoWvT6YPw=="
 	crossorigin="anonymous"></script>
 
+{{!-- socket and plugin script for realtime sharing --}}
 <script src="/plugins/ot/ot.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
@@ -53,11 +67,13 @@
 
 	var socket = io.connect();
 
+    // setting the editor settings
 	var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
 		lineNumbers: true,
 		theme: "material-ocean",
 	});
 
+	// getting the editor content and saving
 	var code = $('#code-screen').val();
 	var cmClient;
 	function init(str, revision, clients, serverAdapter) {
@@ -74,16 +90,20 @@
 		init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket));
 	});
 
+	// getting the Username from chatbox
 	var username = $("#chatbox-username").val();
-	if (username === "") {
+	if (username === "") {                
+		// if username is empty, in case of guest user, providing a username
 		var userId = Math.floor(Math.random() * 9999).toString();
 		username = "User" + userId;
 		$("#chatbox-username").text(username);
 	};
 
+	// getting the room id value 
 	var roomId = $('#roomId').val();
 	socket.emit('joinRoom', { room: roomId, username: username });
 
+	// making the format of text message in chatbox
 	var userMessage = function (name, text) {
 		return ('<li class="media"> <div class="media-body"> <div class="media">' +
 			'<div class="media-body">' +
@@ -92,14 +112,18 @@
 		);
 	};
 
+	// emitting the message of the user to all other users in a specific chatroom
 	var sendMessage = function () {
+		// getting user message 
 		var userMessage = $('#userMessage').val();
 		socket.emit('chatMessage', { message: userMessage, username: username });
+		// clearing textbox value to empty
 		$('#userMessage').val("");
 	};
 
+	// appending the new messages in chatbox area everytime a message is send by a user
 	socket.on('chatMessage', function (data) {
 		$('#chatbox-listMessages').append(userMessage(data.username, data.message));
 	});
-
+	
 </script>
